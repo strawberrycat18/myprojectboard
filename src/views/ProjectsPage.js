@@ -59,7 +59,7 @@ function ListProjectsCard({project}) {
                 <Card style={{width: '10rem'}}>
                     <ListGroup variant="flush">
                         <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
-                        <Link to={`projectdetailspage/${id}`}>
+                        <Link to={`projectdetails/${id}`}>
                             <ListGroup.Item>{projectName}</ListGroup.Item>
                         </Link>
                         <ListGroup.Item className="text-muted"><text>{projectDate}</text></ListGroup.Item>

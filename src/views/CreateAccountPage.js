@@ -16,6 +16,8 @@ export default function CreateAccountPage() {
         try {
             if (password !== confirmPassword){
                 setError('Password and confirm password do not match');
+                setPassword("")
+                setConfirmPassword("")
                 return;
             }
 
