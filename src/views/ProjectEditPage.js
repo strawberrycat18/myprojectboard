@@ -12,7 +12,8 @@ export default function ProjectEditPage() {
   const [projectStatus, setProjectStatus] = useState("");
   const [projectName, setProjectName] = useState("");
   const [projectBrief, setProjectBrief] = useState("");
-  const [projectAddedDate, setProjectAddedDate] = useState("");
+  const [projectCreateDate, setProjectCreateDate] = useState("");
+  const projectDate = projectCreateDate.toDate().toDateString();
   const params = useParams();
   const id = params.id;
   const [user, loading] = useAuthState(auth);
@@ -38,7 +39,7 @@ export default function ProjectEditPage() {
   ];
 
   async function updateProjectDetails() {
-    await updateDoc(doc(db, "projects", id), { projectStatus, projectName, projectBrief, projectAddedDate });
+    await updateDoc(doc(db, "projects", id), { projectStatus, projectName, projectBrief, projectCreateDate });
     navigate(`/projectdetails/${id}`);
   }
 
@@ -53,7 +54,7 @@ export default function ProjectEditPage() {
     setProjectStatus(post.projectStatus);
     setProjectName(post.projectName);
     setProjectBrief(post.projectBrief);
-    setProjectAddedDate(post.projectAddedDate);
+    setProjectCreateDate(post.projectCreateDate);
   }
 
   useEffect(() => {
@@ -86,11 +87,11 @@ export default function ProjectEditPage() {
                 </Button>
             </Link>
           <Form.Group className="mb-3" controlId="projectAddedDate">
-            <Form.Label>Project Added Date</Form.Label>
+            <Form.Label>Project Created Date</Form.Label>
             <Form.Control
               type="text"
-              value={projectAddedDate}
-              onChange={(text) => setProjectAddedDate(text.target.value)}
+              value={projectDate}
+            //   onChange={(text) => setProjectCreateDate({projectCreateDate})}
               disabled
             />
           </Form.Group>

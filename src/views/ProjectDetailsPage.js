@@ -12,7 +12,7 @@ export default function ProjectDetailsPage() {
   const [projectStatus, setProjectStatus] = useState("");
   const [projectName, setProjectName] = useState("");
   const [projectBrief, setProjectBrief] = useState("");
-  const [projectAddedDate, setProjectAddedDate] = useState("");
+  const [projectCreateDate, setProjectCreateDate] = useState("");
   const params = useParams();
   const id = params.id;
   const [user, loading] = useAuthState(auth);
@@ -24,7 +24,7 @@ export default function ProjectDetailsPage() {
     setProjectStatus(post.projectStatus);
     setProjectName(post.projectName);
     setProjectBrief(post.projectBrief);
-    setProjectAddedDate(post.projectAddedDate);
+    setProjectCreateDate(post.projectCreateDate);
   }
 
   useEffect(() => {
@@ -50,16 +50,17 @@ export default function ProjectDetailsPage() {
                     Edit
                 </Button>
             </Link>
-            <Link to={`/projecttask/${id}`}>
+            <Link to={`/projecttasks/${id}`}>
                 <Button variant="primary">
                     Project Planning
                 </Button>
             </Link>
           <Form.Group className="mb-3" controlId="projectAddedDate">
-            <Form.Label>Project Added Date</Form.Label>
+            <Form.Label>Project Creation Date</Form.Label>
             <Form.Control
               type="text"
-              value={projectAddedDate}
+              value={projectCreateDate}
+              format="DD MMM YYYY"
               disabled
             />
           </Form.Group>
@@ -68,6 +69,7 @@ export default function ProjectDetailsPage() {
             <Form.Control
               type="text"
               value={projectStatus}
+              
               disabled
             />
           </Form.Group>
