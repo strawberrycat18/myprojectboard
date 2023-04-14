@@ -24,7 +24,7 @@ export default function ProjectDetailsPage() {
     setProjectStatus(post.projectStatus);
     setProjectName(post.projectName);
     setProjectBrief(post.projectBrief);
-    setProjectAddedDate(post.projectAddedDate.toDate().toDateString());
+    setProjectAddedDate(post.projectAddedDate);
   }
 
   useEffect(() => {
@@ -55,6 +55,14 @@ export default function ProjectDetailsPage() {
                     Project Planning
                 </Button>
             </Link>
+          <Form.Group className="mb-3" controlId="projectAddedDate">
+            <Form.Label>Project Added Date</Form.Label>
+            <Form.Control
+              type="text"
+              value={projectAddedDate}
+              disabled
+            />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="projectStatus">
             <Form.Label>Project Status</Form.Label>
             <Form.Control
@@ -76,14 +84,6 @@ export default function ProjectDetailsPage() {
             <Form.Control
               type="text"
               value={projectBrief}
-              disabled
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="projectAddedDate">
-            <Form.Label>Project Added Date</Form.Label>
-            <Form.Control
-              type="text"
-              value={projectAddedDate}
               disabled
             />
           </Form.Group>

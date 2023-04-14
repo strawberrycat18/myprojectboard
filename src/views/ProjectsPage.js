@@ -20,10 +20,33 @@ export default function ProjectsPage() {
     getAllProjects();
 }, []);
 
-const ProjectsRow = () => {
-    return projects.map((project, index) => <ListProjectsCard key={index} project={project} />);
-};
+const ProjectsRow1 = () => {
+    return projects.map((project, index) => {
+      if (project.projectStatus === "Not Started") 
+      return <ListProjectsCard key={index} project={project} />
+    })
+  }
 
+  const ProjectsRow2 = () => {
+    return projects.map((project, index) => {
+      if (project.projectStatus === "In Progress") 
+      return <ListProjectsCard key={index} project={project} />
+    })
+  }
+
+  const ProjectsRow3 = () => {
+    return projects.map((project, index) => {
+      if (project.projectStatus === "UAT") 
+      return <ListProjectsCard key={index} project={project} />
+    })
+  }
+
+  const ProjectsRow4 = () => {
+    return projects.map((project, index) => {
+      if (project.projectStatus === "Delivered") 
+      return <ListProjectsCard key={index} project={project} />
+    })
+  }
 
 return (
     <>
@@ -41,7 +64,18 @@ return (
             </Col>
         </Row>
         <Row>
-          <ProjectsRow />
+          <Col>
+            <ProjectsRow1 />
+          </Col>
+          <Col>
+            <ProjectsRow2 />
+          </Col>
+          <Col>
+            <ProjectsRow3 />
+          </Col>
+          <Col>
+            <ProjectsRow4 />
+          </Col>
         </Row>
       </Container>
 
@@ -51,9 +85,9 @@ return (
 
 function ListProjectsCard({project}) {
     const { projectStatus, projectName, projectAddedDate, id} = project;
-    console.log(projectAddedDate)
-    const projectDate = project.projectAddedDate.toDate().toDateString();
-    console.log(projectDate)
+    // console.log(projectAddedDate)
+    // const projectDate = projectAddedDate.toDate().toDateString();
+    // console.log(projectDate)
         return (
             <>
                 <Card style={{width: '10rem'}}>
@@ -62,7 +96,7 @@ function ListProjectsCard({project}) {
                         <Link to={`projectdetails/${id}`}>
                             <ListGroup.Item>{projectName}</ListGroup.Item>
                         </Link>
-                        <ListGroup.Item className="text-muted"><text>{projectDate}</text></ListGroup.Item>
+                        <ListGroup.Item className="text-muted"><text>{projectAddedDate}</text></ListGroup.Item>
                     </ListGroup>
                 </Card>
             </>

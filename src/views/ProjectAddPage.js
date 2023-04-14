@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Container, Form, Navbar } from "react-bootstrap";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
@@ -16,9 +16,10 @@ export default function AddProjectDetails() {
   const navigate = useNavigate();
 
   async function addNewProject() {
-    const projectStatus = "Not Started"
-    const projectAddedDate = serverTimestamp();
-    await addDoc(collection(db, "projects"), { projectStatus, projectName, projectBrief, projectAddedDate });
+    const projectStatus = "Not Started";
+    const projectTimestamp = Timestamp.fromDate(new Date());
+    const projectCreatedDate = projectTimestamp.toDate().toDateString();
+    await addDoc(collection(db, "projects"), { projectStatus, projectName, projectBrief, projectCreatedDate });
     navigate("/");
   }
 
