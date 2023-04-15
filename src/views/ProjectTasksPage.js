@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NaviBar from "../NavBar";
 import { Form,InputGroup, Button, Container, Navbar, Row, Col } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
@@ -78,6 +78,11 @@ return (
       </Navbar>
       <div>
             <h2>Project Name: {projectName}</h2>
+            <Link to={`/projectdetails/${pid}`}>
+                <Button variant="primary">
+                    Back to Details Page
+                </Button>
+            </Link>
             <h2>To-do List</h2>
             <InputGroup className="mb-3">
             <Form.Control
@@ -132,24 +137,3 @@ return (
     </Container>
   );
 }
-
-
-// function listToDoCard({toDoItem}) {
-//     const {} = toDoItem
-//     return (
-//       <>
-//         <InputGroup className="mb-3">
-//           <InputGroup.Checkbox
-//             complete = {todo.complete}
-//             id={todo.id}
-//             onClick={() => taskCompleted(todo.id)}
-//           />
-//           <Form.Control
-//             type="text"
-//             placeholder=""
-//             value={toDoItem}
-//         />
-//         </InputGroup>
-//       </>
-//     );
-//   }

@@ -97,10 +97,10 @@ return (
 }
 
 function ListProjectsCard({project}) {
-    const { projectStatus, projectName, projectCreateDate, id} = project;
-    console.log(projectCreateDate.seconds)
-    const projectDate = new Date (projectCreateDate.seconds * 1000 + projectCreateDate.nanoseconds / 1000000);
-    console.log(project)
+    const { projectStatus, projectName, projectCreatedOn, id} = project;
+    // console.log(projectCreateDate.seconds)
+    // const projectDate = new Date (projectCreateDate.seconds * 1000 + projectCreateDate.nanoseconds / 1000000);
+    // console.log(project)
         return (
             <>
                 <Card style={{width: '10rem'}}>
@@ -109,7 +109,7 @@ function ListProjectsCard({project}) {
                         <Link to={`projectdetails/${id}`}>
                             <ListGroup.Item>{projectName}</ListGroup.Item>
                         </Link>
-                        <ListGroup.Item className="text-muted">{projectDate.toDateString()}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">{projectCreatedOn}</ListGroup.Item>
                     </ListGroup>
                 </Card>
             </>

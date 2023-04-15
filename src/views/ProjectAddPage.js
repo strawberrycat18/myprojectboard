@@ -18,8 +18,11 @@ export default function AddProjectDetails() {
   async function addNewProject() {
     const projectStatus = "Not Started";
     const projectCreateDate = Timestamp.fromDate(new Date());
+  
+    const projectCreatedOn = new Timestamp(projectCreateDate.seconds,projectCreateDate.nanoseconds).toDate().toDateString();
+    console.log(projectCreatedOn)
     // const projectCreatedDate = projectTimestamp.toDate().toDateString();
-    await addDoc(collection(db, "projects"), { projectStatus, projectName, projectBrief, projectCreateDate });
+    await addDoc(collection(db, "projects"), { projectStatus, projectName, projectBrief,projectCreatedOn });
     navigate("/");
   }
 

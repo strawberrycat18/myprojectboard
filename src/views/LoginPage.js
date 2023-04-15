@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Form} from 'react-bootstrap'
+import { Button, Container, Form, Navbar } from 'react-bootstrap'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -25,7 +25,10 @@ export default function LoginPage() {
 
     return (
         <Container>
-            <h1 className="my-3">Log-in to your account</h1>
+            <Container>
+                <Navbar.Brand href="/"><h1>Project Not "Boring"</h1></Navbar.Brand>
+            </Container>
+            <h3 className="my-3">Log-in to your account</h3>
             {error && <p className = "error">{error}</p>}
             <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -12,8 +12,9 @@ export default function ProjectEditPage() {
   const [projectStatus, setProjectStatus] = useState("");
   const [projectName, setProjectName] = useState("");
   const [projectBrief, setProjectBrief] = useState("");
-  const [projectCreateDate, setProjectCreateDate] = useState("");
-  const projectDate = projectCreateDate.toDate().toDateString();
+  // const [projectCreateDate, setProjectCreateDate] = useState("");
+  const [projectCreatedOn, setProjectCreatedOn] = useState("");
+  // const projectDate = projectCreateDate;
   const params = useParams();
   const id = params.id;
   const [user, loading] = useAuthState(auth);
@@ -39,7 +40,7 @@ export default function ProjectEditPage() {
   ];
 
   async function updateProjectDetails() {
-    await updateDoc(doc(db, "projects", id), { projectStatus, projectName, projectBrief, projectCreateDate });
+    await updateDoc(doc(db, "projects", id), { projectStatus, projectName, projectBrief, projectCreatedOn });
     navigate(`/projectdetails/${id}`);
   }
 
@@ -54,7 +55,7 @@ export default function ProjectEditPage() {
     setProjectStatus(post.projectStatus);
     setProjectName(post.projectName);
     setProjectBrief(post.projectBrief);
-    setProjectCreateDate(post.projectCreateDate);
+    setProjectCreatedOn(post.projectCreatedOn);
   }
 
   useEffect(() => {
@@ -83,15 +84,15 @@ export default function ProjectEditPage() {
                 </Button>
             <Link to={`/projectdetails/${id}`}>
                 <Button variant="primary">
-                    Back
+                    Back to Details Page
                 </Button>
             </Link>
           <Form.Group className="mb-3" controlId="projectAddedDate">
             <Form.Label>Project Created Date</Form.Label>
             <Form.Control
               type="text"
-              value={projectDate}
-            //   onChange={(text) => setProjectCreateDate({projectCreateDate})}
+              value={projectCreatedOn}
+              onChange={(text) => setProjectCreatedOn({projectCreatedOn})}
               disabled
             />
           </Form.Group>
