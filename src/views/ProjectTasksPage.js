@@ -2,44 +2,57 @@ import { useEffect, useState } from "react";
 import NaviBar from "../NavBar";
 import { Form,InputGroup, Button, Container, Navbar, Row, Col } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, getDocs, collection, addDoc, deleteDoc} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 
+
+
 export default function ProjectTasksPage() {
-  const [newTask, setNewTask] = useState("");
+  //const [newTask, setNewTask] = useState("");
   const [completedTaskCount, setCompletedTaskCount] = useState(0);
   const [todoList, setTodoList] = useState([]);
+  const [projectStatus, setProjectStatus] = useState("");
   const [projectName, setProjectName] = useState("");
+  //const [completedStatus, setCompletedStatus] = useState("")
+  const [taskName, setTaskName] = useState("")
   const params = useParams();
   const pid = params.id;
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
-async function getProjectTasks(pid) {
+async function getProjectDetail(pid) {
     const postProjectDetails = await getDoc(doc(db, "projects", pid));
     const post = postProjectDetails.data();
     setProjectName(post.projectName);
+    setProjectStatus(post.projectStatus);
+}
 
-  }
+async function getProjectToDoList(pid){
+    const query = await getDocs(collection(db, "projects", pid, "todolist"));
+    const todoList = query.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    setTodoList(todoList.sort((a, b) => {return a.itemID - b.itemID}));
 
-  const addNewTask = () => {
-    const id = todoList.length + 1;
-    setTodoList((prev) => [
-      ...prev,
-      {
-        id: id,
-        task: newTask,
-        complete: false,
-      }
-    ]);
-    setNewTask("");
-  };
+}
 
-  const removeTask = (id) => {
-    const newList = todoList.filter((item) => item.id !==id);
-    setTodoList(newList)
-  };
+async function addNewTask(pid) {
+  const completedStatus = false;
+  const itemID = Math.max(...todoList.map(i => i.itemID),0) + 1;
+  await addDoc((collection(db, "projects", pid, "todolist")), { itemID, completedStatus, taskName });
+  //navigate(`/projecttasks/${pid}`);
+  getProjectToDoList(pid);
+  setTaskName("")
+}
+
+async function removeTask(pid,tid) {
+   const query = doc(db, "projects", pid, "todolist", tid)
+  await deleteDoc(query)
+
+  navigate(`/projecttasks/${pid}`);
+  getProjectToDoList(pid);
+}
 
   const taskCompleted = (id) => {
     let list = todoList.map((task) => {
@@ -64,7 +77,8 @@ return item;
   useEffect(() => {
     if (loading) return;
     if (!user) navigate("/login");
-    getProjectTasks(pid);
+    getProjectDetail(pid);
+    getProjectToDoList(pid);
   }, [pid, navigate, user, loading]);
 
 return (
@@ -77,7 +91,8 @@ return (
         </Container>
       </Navbar>
       <div>
-            <h2>Project Name: {projectName}</h2>
+            <h2>Project Name: {projectName} </h2>
+            <h3>Project Status:{projectStatus}</h3>
             <Link to={`/projectdetails/${pid}`}>
                 <Button variant="primary">
                     Back to Details Page
@@ -88,10 +103,10 @@ return (
             <Form.Control
                 type="text"
                 placeholder="What task is required?"
-                value={newTask}
-                onInput={(text) => setNewTask(text.target.value)}
+                value={taskName}
+                onChange={(text) => setTaskName(text.target.value)}
                 />
-          <Button variant="primary" onClick={() => addNewTask()}>
+          <Button variant="primary" onClick={async (e) => addNewTask(pid)}>
             Add Task
           </Button>
 
@@ -99,7 +114,7 @@ return (
           <h2>List of Tasks</h2>
         <Row>
             <Col>
-                <b>Pending Tasks</b> {todoList.length - completedTaskCount}
+                <b>Pending Tasks</b> {(todoList.length - completedTaskCount) === 0 ? completedTaskCount : todoList.length - completedTaskCount}
             </Col>
             <Col>
                 <b>Completed Tasks</b> {completedTaskCount}
@@ -112,18 +127,18 @@ return (
                 <Container>
                     <InputGroup className="mb-3">
                         <InputGroup.Checkbox
-                        complete = {todo.complete}
+                        complete = {todo.completedStatus}
                         id={todo.id}
                         onClick={() => taskCompleted(todo.id)}
                     />
                     <Form.Control
                         type="text"
                         placeholder=""
-                        value={todo.task}
+                        value={todo.taskName}
                         />
                         <Button 
                         variant="outline-secondary" id="button-addon2"
-                        onClick={() => removeTask(todo.id)}
+                        onClick={() => removeTask(pid,todo.id)}
                         >
                             Delete
                         </Button>

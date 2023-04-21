@@ -66,7 +66,7 @@ return (
             </div>
         </Container>
       </Navbar>
-      <Container class="container px-4 text center">
+      <Container className="container px-4 text center">
         <Row >
             <Col>
                 <Button href="/addproject" variant="primary">Add New Project</Button>
@@ -104,7 +104,7 @@ function ListProjectsCard({project}) {
         return (
             <>
                 <Card style={{width: '10rem'}}>
-                    <ListGroup variant="flush">
+                    <ListGroup draggable="true" variant="flush">
                         <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
                         <Link to={`projectdetails/${id}`}>
                             <ListGroup.Item>{projectName}</ListGroup.Item>
