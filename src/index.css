@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.selectLink {
+  color: forestgreen;
+  
+}
+.selectLink:hover {
+  text-decoration: none;
+  background-color: forestgreen;
+  color: white;
+  font-weight:bold
+
+}
+
+.nontitle{
+  font-size: 12px;
+}

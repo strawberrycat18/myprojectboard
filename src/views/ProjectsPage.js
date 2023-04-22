@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import NaviBar from "../NavBar";
-
+import "../index.css";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -114,11 +114,11 @@ function ListProjectsCard({project}) {
             <>
                 <Card className="m1" style={{margin:"1rem"}}>
                     <ListGroup draggable="true" variant="flush">
-                        <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
-                        <Link to={`projectdetails/${id}`} style={{textDecoration: 'none'}}>
-                            <ListGroup.Item>{projectName}</ListGroup.Item>
+                        <ListGroup.Item className= "nontitle text-muted">{projectStatus}</ListGroup.Item>
+                        <Link className="selectLink" to={`projectdetails/${id}`}>
+                            <ListGroup.Item className="selectLink" >{projectName}</ListGroup.Item>
                         </Link>
-                        <ListGroup.Item className="text-muted">{projectCreatedOn}</ListGroup.Item>
+                        <ListGroup.Item className="nontitle text-muted">{projectCreatedOn}</ListGroup.Item>
                     </ListGroup>
                 </Card>
             </>

@@ -173,7 +173,7 @@ export default function ProjectDetailsPage() {
 }
 
 function ListProjectsCard({project}) {
-  const { projectStatus, projectName, id} = project;
+  const { projectStatus, projectName, projectCreatedOn, id} = project;
   // console.log(projectCreateDate.seconds)
   // const projectDate = new Date (projectCreateDate.seconds * 1000 + projectCreateDate.nanoseconds / 1000000);
   // console.log(project)
@@ -181,9 +181,9 @@ function ListProjectsCard({project}) {
           <>
               <Card className="mt-2">
                   <ListGroup draggable="true" variant="flush">
-                      <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
-                      <Link to={`/projectdetails/${id}`} style={{textDecoration: 'none'}}>
-                          <ListGroup.Item>{projectName}</ListGroup.Item>
+                      <ListGroup.Item className="nontitle text-muted">{projectStatus} | {projectCreatedOn}</ListGroup.Item>
+                      <Link to={`/projectdetails/${id}`} className="selectLink">
+                          <ListGroup.Item className="selectLink">{projectName}</ListGroup.Item>
                       </Link>
                   </ListGroup>
               </Card>
