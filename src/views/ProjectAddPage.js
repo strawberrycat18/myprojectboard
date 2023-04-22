@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Navbar } from "react-bootstrap";
+import { Button, Container, Form, Navbar , Stack } from "react-bootstrap";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import NaviBar from "../NavBar";
@@ -12,7 +12,8 @@ export default function AddProjectDetails() {
   const [user, loading] = useAuthState(auth);
   const [projectName, setProjectName] = useState("");
   const [projectBrief, setProjectBrief] = useState("");
-
+  const params = useParams();
+  const id = params.id;
   const navigate = useNavigate();
 
   async function addNewProject() {
@@ -42,9 +43,16 @@ export default function AddProjectDetails() {
       <Container>
         <h1 style={{ marginBlock: "1rem" }}>Add New Project</h1>
         <Form>
-        <Button variant="primary" onClick={async (e) => addNewProject()}>
-            Submit
-          </Button>
+        <Stack direction="horizontal" gap = {2}>
+          <Button variant="primary" onClick={async (e) => addNewProject()}>
+              Submit
+            </Button>
+            <Link to={`/`}>
+                      <Button variant="primary">
+                          Back to Projects Page
+                      </Button>
+            </Link>
+          </Stack>
           <Form.Group className="my-3" controlId="projectStatus">
             <Form.Label>Project Status</Form.Label>
             <Form.Control
