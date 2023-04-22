@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Navbar } from "react-bootstrap";
+import { Button, Container, Form, Navbar,Stack } from "react-bootstrap";
 import { getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -75,19 +75,21 @@ export default function ProjectEditPage() {
       </Navbar>
       <Container>
         <h1 style={{ marginBlock: "1rem" }}>Project Details</h1>
-        <Form>
+        <Form className="container px-2 text center">
+            <Stack direction="horizontal" gap = {2}>
                 <Button variant="primary" onClick={(e) => updateProjectDetails()}>
                     Update
                 </Button>
                 <Button variant="primary" onClick={(e) => deleteProjectDetails(id)}>
                     Delete
                 </Button>
-            <Link to={`/projectdetails/${id}`}>
-                <Button variant="primary">
-                    Back to Details Page
-                </Button>
-            </Link>
-          <Form.Group className="mb-3" controlId="projectAddedDate">
+                <Link to={`/projectdetails/${id}`}>
+                    <Button variant="primary">
+                        Back to Details Page
+                    </Button>
+                </Link>
+            </Stack>
+          <Form.Group className="my-3" controlId="projectAddedDate">
             <Form.Label>Project Created Date</Form.Label>
             <Form.Control
               type="text"

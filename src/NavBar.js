@@ -1,7 +1,7 @@
 import React, { useEffect} from "react";
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar, Stack } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -16,14 +16,18 @@ export default function NaviBar() {
 
         return (
             <>
-                <Navbar variant="light" bg="light">
-                    <Container>
-                        <Navbar.Brand href="/">Project Not "Boring"</Navbar.Brand>
-                        <Nav>
-                            <Nav.Link href="/">Projects</Nav.Link>
-                            <Nav.Link onClick={(e) => signOut(auth)}>Sign Out</Nav.Link>
-                        </Nav>
-                    </Container>
+                <Navbar class="mb-3 py-1" variant="light" bg="light" >
+                        <Stack direction="horizontal" gap={5}>
+                            <div>
+                                <Navbar.Brand href="/">Project Not "Boring"</Navbar.Brand>
+                            </div>
+                            <div className="mx-1">
+                                <Nav.Link href="/">Projects</Nav.Link>
+                            </div>
+                            <div>
+                                <Nav.Link onClick={(e) => signOut(auth)}>Sign Out</Nav.Link>
+                            </div>
+                        </Stack>
                 </Navbar>
             </>
         );

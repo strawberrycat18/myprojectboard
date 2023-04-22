@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Navbar, Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Button, Container, Form, Navbar, Row, Col, Card, ListGroup, Stack } from "react-bootstrap";
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -94,10 +94,11 @@ export default function ProjectDetailsPage() {
         </Container>
       </Navbar>
       <Row>
-        <Col>
+        <Col class="col-4">
          <Container>
+         <h2 style={{ marginBlock: "1rem" }}>Project Status</h2>
          <Form.Group className="mb-3" controlId="projectStatus">
-            <Form.Label>Select a Project Status</Form.Label>
+            <Form.Label ><h4>Select a Project Status</h4></Form.Label>
             <Form.Select value={selectProjectStatus} onChange={(text) => setSelectProjectStatus(text.target.value)}>
                 {projectStatusOptions.map((option) => (
                     <option value={option.statusValue}>{option.statusLabel}</option>
@@ -108,26 +109,28 @@ export default function ProjectDetailsPage() {
          </Container>
         </Col>
       
-        <Col>
+        <Col class="col-8">
           <Container>
-            <h1 style={{ marginBlock: "1rem" }}>Project Details</h1>
+            <h2 style={{ marginBlock: "1rem" }}>Project Details</h2>
             <Form>
-                <Link to={`/editproject/${id}`}>
-                    <Button variant="primary">
-                        Edit
-                    </Button>
-                </Link>
-                <Link to={`/`}>
-                    <Button variant="primary">
-                        Back to Projects
-                    </Button>
-                </Link>
-                <Link to={`/projecttasks/${id}`}>
-                    <Button variant="primary">
-                        Project Planning
-                    </Button>
-                </Link>
-              <Form.Group className="mb-3" controlId="projectAddedDate">
+                  <Stack direction="horizontal" gap = {2}>
+                    <Link to={`/editproject/${id}`}>
+                        <Button variant="primary">
+                            Edit
+                        </Button>
+                    </Link>
+                    <Link to={`/`}>
+                        <Button variant="primary">
+                            Back to Projects
+                        </Button>
+                    </Link>
+                    <Link to={`/projecttasks/${id}`}>
+                        <Button variant="primary">
+                            Project Planning
+                        </Button>
+                    </Link>
+                  </Stack>
+              <Form.Group className="my-3" controlId="projectAddedDate">
                 <Form.Label>Project Creation Date</Form.Label>
                 <Form.Control
                   type="text"
@@ -176,10 +179,10 @@ function ListProjectsCard({project}) {
   // console.log(project)
       return (
           <>
-              <Card style={{width: '10rem'}}>
+              <Card className="mt-2">
                   <ListGroup draggable="true" variant="flush">
                       <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
-                      <Link to={`/projectdetails/${id}`}>
+                      <Link to={`/projectdetails/${id}`} style={{textDecoration: 'none'}}>
                           <ListGroup.Item>{projectName}</ListGroup.Item>
                       </Link>
                   </ListGroup>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NaviBar from "../NavBar";
-import { Form,InputGroup, Button, Container, Navbar, Row, Col } from "react-bootstrap";
+import { Form,InputGroup, Button, Container, Navbar, Row, Col, Stack } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDoc, doc, getDocs, collection, addDoc, deleteDoc} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -91,14 +91,17 @@ return (
         </Container>
       </Navbar>
       <div>
-            <h2>Project Name: {projectName} </h2>
-            <h3>Project Status:{projectStatus}</h3>
+            <Stack direction="horizontal" gap={4}>
+              <h3 style={{ marginBlock: "1rem" }}>Project Name: {projectName} </h3>
+              <div class="vr" style={{marginBlock:"1rem", height:"2rem"}}></div>
+              <h3 style={{ marginBlock: "1rem" }}>Project Status: {projectStatus}</h3>
+            </Stack>
             <Link to={`/projectdetails/${pid}`}>
                 <Button variant="primary">
                     Back to Details Page
                 </Button>
             </Link>
-            <h2>To-do List</h2>
+            <h2 className="my-3">To-do List</h2>
             <InputGroup className="mb-3">
             <Form.Control
                 type="text"
@@ -111,7 +114,7 @@ return (
           </Button>
 
           </InputGroup>
-          <h2>List of Tasks</h2>
+          <h2 className="my-3">List of Tasks</h2>
         <Row>
             <Col>
                 <b>Pending Tasks</b> {(todoList.length - completedTaskCount) === 0 ? completedTaskCount : todoList.length - completedTaskCount}
@@ -125,7 +128,7 @@ return (
             {todoList.map((todo) => {
               return (
                 <Container>
-                    <InputGroup className="mb-3">
+                    <InputGroup className="my-2">
                         <InputGroup.Checkbox
                         complete = {todo.completedStatus}
                         id={todo.id}

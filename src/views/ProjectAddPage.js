@@ -45,7 +45,7 @@ export default function AddProjectDetails() {
         <Button variant="primary" onClick={async (e) => addNewProject()}>
             Submit
           </Button>
-          <Form.Group className="mb-3" controlId="projectStatus">
+          <Form.Group className="my-3" controlId="projectStatus">
             <Form.Label>Project Status</Form.Label>
             <Form.Control
               type="text"

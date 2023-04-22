@@ -66,30 +66,39 @@ return (
             </div>
         </Container>
       </Navbar>
-      <Container className="container px-4 text center">
-        <Row >
-            <Col>
+      <Container>
+        <Row style={{ marginBlock: "1rem" }}>
+            <Col class="col-3">
                 <Button href="/addproject" variant="primary">Add New Project</Button>
             </Col>
         </Row>
         <Row>
-          <Col>
-            <h5>Not Started</h5>
-            <ProjectsRow1 />
-          </Col>
-          <Col>
-          <h5>In Progress</h5>
-            <ProjectsRow2 />
-          </Col>
-          <Col>
-          <h5>UAT</h5>
-            <ProjectsRow3 />
-          </Col>
-          <Col>
-          <h5>Delivered</h5>
-            <ProjectsRow4 />
-          </Col>
+            <Col class="col-3">
+              <div class="ms-1 border border-success rounded-3">
+                <h5 class="mt-3 text-center">Not Started</h5>
+                <ProjectsRow1 />
+              </div>
+            </Col>
+            <Col class="col-3">
+            <div class="ms-1 border border-success rounded-3">
+                  <h5 class="mt-3 text-center">In Process</h5>
+                  <ProjectsRow2 />
+                </div>
+            </Col>
+            <Col class="col-3">
+                <div class="ms-1 border border-success rounded-3">
+                  <h5 class="mt-3 text-center">UAT</h5>
+                  <ProjectsRow3 />
+                </div>
+            </Col>
+            <Col class="col-3">
+              <div class="me-1 border border-success rounded-3">
+                  <h5 class="mt-3 text-center">Delivered</h5>
+                <ProjectsRow4 />
+              </div>
+            </Col>
         </Row>
+
       </Container>
 
     </>
@@ -103,10 +112,10 @@ function ListProjectsCard({project}) {
     // console.log(project)
         return (
             <>
-                <Card style={{width: '10rem'}}>
+                <Card className="m1" style={{margin:"1rem"}}>
                     <ListGroup draggable="true" variant="flush">
                         <ListGroup.Item className="text-muted">{projectStatus}</ListGroup.Item>
-                        <Link to={`projectdetails/${id}`}>
+                        <Link to={`projectdetails/${id}`} style={{textDecoration: 'none'}}>
                             <ListGroup.Item>{projectName}</ListGroup.Item>
                         </Link>
                         <ListGroup.Item className="text-muted">{projectCreatedOn}</ListGroup.Item>
