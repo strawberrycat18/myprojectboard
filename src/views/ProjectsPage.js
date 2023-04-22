@@ -114,11 +114,10 @@ function ListProjectsCard({project}) {
             <>
                 <Card className="m1" style={{margin:"1rem"}}>
                     <ListGroup draggable="true" variant="flush">
-                        <ListGroup.Item className= "nontitle text-muted">{projectStatus}</ListGroup.Item>
+                        <ListGroup.Item className= "nontitle text-muted">{projectStatus} | {projectCreatedOn}</ListGroup.Item>
                         <Link className="selectLink" to={`projectdetails/${id}`}>
                             <ListGroup.Item className="selectLink" >{projectName}</ListGroup.Item>
                         </Link>
-                        <ListGroup.Item className="nontitle text-muted">{projectCreatedOn}</ListGroup.Item>
                     </ListGroup>
                 </Card>
             </>
